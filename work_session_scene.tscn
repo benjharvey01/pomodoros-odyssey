@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://c1s2msewlkvp0"]
-
-[node name="work_session_scene" type="Node2D"]
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 1500.0
-one_shot = true
-autostart = true
