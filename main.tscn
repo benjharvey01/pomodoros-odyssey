@@ -7,19 +7,33 @@
 script = ExtResource("1_7wk4p")
 
 [node name="WorkingSessionTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 one_shot = true
 
 [node name="WorkingSessionStartButton" type="TextureButton" parent="."]
-offset_right = 128.0
-offset_bottom = 128.0
+offset_left = 161.0
+offset_top = 66.0
+offset_right = 289.0
+offset_bottom = 194.0
 texture_normal = ExtResource("2_pvdka")
 
 [node name="WorkingSessionTimerText" type="RichTextLabel" parent="."]
-offset_left = 355.0
-offset_top = 174.0
-offset_right = 684.0
-offset_bottom = 349.0
+offset_left = 474.0
+offset_top = 31.0
+offset_right = 749.0
+offset_bottom = 177.0
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b] Time Remaining: [/b]"
+
+[node name="WorkingSessionPauseButton" type="TextureButton" parent="."]
+offset_left = 789.0
+offset_top = 71.0
+offset_right = 917.0
+offset_bottom = 199.0
+texture_normal = ExtResource("2_pvdka")
 
 [connection signal="timeout" from="WorkingSessionTimer" to="." method="_on_working_session_timer_timeout"]
 [connection signal="pressed" from="WorkingSessionStartButton" to="." method="_on_working_session_start_button_pressed"]
+[connection signal="pressed" from="WorkingSessionPauseButton" to="." method="_on_working_session_pause_button_pressed"]
