@@ -11,31 +11,41 @@ enum STATES {
 var _state : int = STATES.PAUSED # Current state used by the state machine
 var current_session_type : int = STATES.WORKING_SESSION
 
+# The length of each session type (seconds)
+var working_session_length : int = 1500
+var short_break_session_length: int = 300 
+var long_break_session_length: int = 600
+
 func change_state(new_state: int) -> void:
-	var previous_state := _state
-	_state = new_state
+	if new_state != _state:
+		var previous_state := _state
+		_state = new_state
+		
+		# Initialize the new state.
+		match _state:
+			STATES.WORKING_SESSION:
+				pass
+			STATES.SHORT_BREAK_SESSION:
+				pass
+			STATES.LONG_BREAK_SESSION:
+				pass
+			STATES.PAUSED:
+				pass
+				
+		# Clean up the previous state.
+		match previous_state:
+			STATES.WORKING_SESSION:
+				pass
+			STATES.SHORT_BREAK_SESSION:
+				pass
+			STATES.LONG_BREAK_SESSION:
+				pass
+			STATES.PAUSED:
+				pass
+	else:
+		pass
 	
-	# Initialize the new state.
-	match _state:
-		STATES.WORKING_SESSION:
-			pass
-		STATES.SHORT_BREAK_SESSION:
-			pass
-		STATES.LONG_BREAK_SESSION:
-			pass
-		STATES.PAUSED:
-			pass
-			
-	# Clean up the previous state.
-	match previous_state:
-		STATES.WORKING_SESSION:
-			pass
-		STATES.SHORT_BREAK_SESSION:
-			pass
-		STATES.LONG_BREAK_SESSION:
-			pass
-		STATES.PAUSED:
-			pass
+	
 
 func _process(delta: float):
 	pass
@@ -63,3 +73,14 @@ func _on_long_break_session_button_pressed():
 		current_session_type = STATES.LONG_BREAK_SESSION
 	else:
 		pass
+
+func _on_reset_timer_button_pressed():
+	match current_session_type:
+		STATES.WORKING_SESSION:
+			wait_time = working_session_length
+		STATES.SHORT_BREAK_SESSION:
+			wait_time = short_break_session_length
+		STATES.LONG_BREAK_SESSION:
+			wait_time = long_break_session_length
+			
+		
