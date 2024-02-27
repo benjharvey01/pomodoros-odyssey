@@ -4,6 +4,29 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="SessionTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1500.0
 one_shot = true
 script = ExtResource("1_i3sbs")
+
+[node name="PlayPauseButton" type="Button" parent="SessionTimer"]
+offset_right = 220.0
+offset_bottom = 207.0
+
+[node name="WorkingSessionButton" type="Button" parent="SessionTimer"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="ShortBreakSessionButton" type="Button" parent="SessionTimer"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="LongBreakSessionButton" type="Button" parent="SessionTimer"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="SessionTimer/PlayPauseButton" to="SessionTimer" method="_on_play_pause_button_pressed"]
+[connection signal="pressed" from="SessionTimer/WorkingSessionButton" to="SessionTimer" method="_on_working_session_button_pressed"]
+[connection signal="pressed" from="SessionTimer/ShortBreakSessionButton" to="SessionTimer" method="_on_short_break_session_button_pressed"]
+[connection signal="pressed" from="SessionTimer/LongBreakSessionButton" to="SessionTimer" method="_on_long_break_session_button_pressed"]
