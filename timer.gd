@@ -46,7 +46,7 @@ func _process(delta: float):
 	pass
 
 func _on_play_pause_button_pressed():
-	if paused:
+	if paused == false:
 		change_state(current_session_type)
 		start()
 	else:
