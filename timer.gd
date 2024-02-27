@@ -53,24 +53,28 @@ func _process(delta: float):
 func _on_play_pause_button_pressed():
 	if _state != STATES.PAUSED:
 		change_state(current_session_type)
+		start()
 	else:
 		change_state(STATES.PAUSED)
 
 func _on_working_session_button_pressed():
 	if _state != STATES.WORKING_SESSION:
 		current_session_type = STATES.WORKING_SESSION
+		wait_time = working_session_length
 	else:
 		pass
 
 func _on_short_break_session_button_pressed():
 	if _state != STATES.SHORT_BREAK_SESSION:
 		current_session_type = STATES.SHORT_BREAK_SESSION
+		wait_time = short_break_session_length
 	else:
 		pass
 
 func _on_long_break_session_button_pressed():
 	if _state != STATES.LONG_BREAK_SESSION:
 		current_session_type = STATES.LONG_BREAK_SESSION
+		wait_time = long_break_session_length
 	else:
 		pass
 
