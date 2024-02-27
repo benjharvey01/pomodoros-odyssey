@@ -4,11 +4,10 @@ extends Timer
 enum STATES {
 	WORKING_SESSION, 
 	SHORT_BREAK_SESSION,
-	LONG_BREAK_SESSION,
-	PAUSED
+	LONG_BREAK_SESSION
 	}
 
-var _state : int = STATES.PAUSED # Current state used by the state machine
+var _state : int = STATES.WORKING_SESSION # Current state used by the state machine
 var current_session_type : int = STATES.WORKING_SESSION
 
 # The length of each session type (seconds)
@@ -24,13 +23,11 @@ func change_state(new_state: int) -> void:
 		# Initialize the new state.
 		match _state:
 			STATES.WORKING_SESSION:
-				pass
+				wait_time = working_session_length
 			STATES.SHORT_BREAK_SESSION:
-				pass
+				wait_time = short_break_session_length
 			STATES.LONG_BREAK_SESSION:
-				pass
-			STATES.PAUSED:
-				pass
+				wait_time = long_break_session_length
 				
 		# Clean up the previous state.
 		match previous_state:
@@ -39,8 +36,6 @@ func change_state(new_state: int) -> void:
 			STATES.SHORT_BREAK_SESSION:
 				pass
 			STATES.LONG_BREAK_SESSION:
-				pass
-			STATES.PAUSED:
 				pass
 	else:
 		pass
@@ -51,35 +46,23 @@ func _process(delta: float):
 	pass
 
 func _on_play_pause_button_pressed():
-	if _state != STATES.PAUSED:
+	if paused:
 		change_state(current_session_type)
 		start()
 	else:
-		change_state(STATES.PAUSED)
+		paused = true
 
 func _on_working_session_button_pressed():
-	if _state != STATES.WORKING_SESSION:
-		current_session_type = STATES.WORKING_SESSION
-		wait_time = working_session_length
-	else:
-		pass
+	change_state(STATES.WORKING_SESSION)
 
 func _on_short_break_session_button_pressed():
-	if _state != STATES.SHORT_BREAK_SESSION:
-		current_session_type = STATES.SHORT_BREAK_SESSION
-		wait_time = short_break_session_length
-	else:
-		pass
+	change_state(STATES.SHORT_BREAK_SESSION)
 
 func _on_long_break_session_button_pressed():
-	if _state != STATES.LONG_BREAK_SESSION:
-		current_session_type = STATES.LONG_BREAK_SESSION
-		wait_time = long_break_session_length
-	else:
-		pass
+	change_state(STATES.LONG_BREAK_SESSION)
 
 func _on_reset_timer_button_pressed():
-	match current_session_type:
+	match _state:
 		STATES.WORKING_SESSION:
 			wait_time = working_session_length
 		STATES.SHORT_BREAK_SESSION:
